@@ -1,5 +1,5 @@
-require("core")
-require("keymaps")
-require("autocommands")
+require("core.keymaps")
+require("core.settings")
+require("core.autocommands")
 
-require("lazy")
+require("setup.lazy")

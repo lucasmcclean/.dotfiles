@@ -1,4 +1,4 @@
-local languages = require("config.languages")
+local languages = require("res.languages")
 
 return {
 	{

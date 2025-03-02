@@ -48,11 +48,11 @@ return {
 		config = {},
 	},
 	typescript = {
-		server = "tsserver",
+		server = "ts_ls",
 		config = {},
 	},
 	markdown = {
-		server = "markdownlint",
+		server = "marksman",
 		config = {},
 	},
 	rust = {
