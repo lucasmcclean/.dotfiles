@@ -12,9 +12,10 @@ return {
     "williamboman/mason-lspconfig.nvim",
     config = function()
       require("mason-lspconfig").setup({
-        ensure_installed = vim.tbl_map(function(lang)
-          return lang.server
-        end, languages),
+        ensure_installed = vim.tbl_values(vim.tbl_map(
+          function(lang)
+            return lang.server
+          end, languages)),
       })
     end,
   },
@@ -39,11 +40,10 @@ return {
     config = function()
       local cmp = require("cmp")
       cmp.setup({
+        completion = { completeopt = "menu,menuone,noinsert" },
         mapping = cmp.mapping.preset.insert({
           ["<C-Space>"] = cmp.mapping.complete(),
           ["<C-e>"] = cmp.mapping.close(),
-          ["<C-n>"] = cmp.mapping.select_next_item(),
-          ["<C-p>"] = cmp.mapping.select_prev_item(),
           ["<C-j>"] = cmp.mapping.select_next_item(),
           ["<C-k>"] = cmp.mapping.select_prev_item(),
           ["<C-y>"] = cmp.mapping.confirm({ select = true }),

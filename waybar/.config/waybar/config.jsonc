@@ -1,0 +1,122 @@
+{
+  "layer": "top",
+  "position": "left",
+  "margin": "4 4 4 4",
+  "reload_style_on_change": true,
+  "modules-left": [
+    "hyprland/workspaces",
+  ],
+  "hyprland/workspaces": {
+    "format": "{icon}",
+    "on-click": "activate",
+    "sort-by-number": true,
+    "format-icons": {
+      "1": "",
+      "2": "󰈹",
+      "default": "",
+    },
+    "persistent-workspaces": {
+      "1": [],
+      "2": [],
+      "3": [],
+    },
+  },
+  "modules-center": [
+    "clock",
+  ],
+    "clock": {
+    "format": "{:%m\n%d\n%H\n%M}",
+    "tooltip-format": "<tt><small>{calendar}</small></tt>",
+    "calendar": {
+      "mode": "month",
+      "mode-mon-col": 3,
+      "weeks-pos": "right",
+      "on-scroll": 1,
+      "on-click-right": "mode",
+      "format": {
+        "today": "<span color='#a6e3a1'><b><u>{}</u></b></span>"
+      },
+    },
+  },
+  "modules-right": [
+    "backlight",
+    "wireplumber",
+    "wireplumber#mic",
+    "network",
+    "battery",
+  ],
+  "backlight": {
+    "format": "{icon}",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "on-scroll-down": "brightnessctl s 5%-",
+    "on-scroll-up": "brightnessctl s +5%",
+    "tooltip": false,
+    "smooth-scrolling-threshold": 1
+  },
+  "wireplumber": {
+    "format": "{icon}",
+    "format-muted": "󰖁",
+    "format-icons": [ "󰕿", "󰖀", "󰕾" ],
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "scroll-step": 1,
+    "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+",
+    "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
+  },
+  "wireplumber#mic": {
+    "format": "",
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle; pkill -RTMIN+10 waybar", 
+    "exec": "wpctl status | grep -q 'Source: @DEFAULT_AUDIO_SOURCE@' && wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -q 'MUTED' && echo '' || echo ''",
+    "signal": 10,
+    "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ -1%",
+    "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ +1%",
+  },
+  "network": {
+    "format": "{icon}",
+    "format-icons": {
+      "wifi": [
+        "󰖩"
+      ],
+      "ethernet": [
+        "󰈀"
+      ],
+      "disconnected": [
+        "󰖪"
+      ]
+    },
+    "tooltip": false,
+  },
+  "battery": {
+    "rotate": 270,
+    "states": {
+      "good": 95,
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon}",
+    "format-charging": "<b>{icon} </b>",
+    "format-icons": [
+      "󰁻",
+      "󰁼",
+      "󰁾",
+      "󰂀",
+      "󰂂",
+      "󰁹"
+    ],
+  },
+}
