@@ -1,0 +1,8 @@
+alias ga="git add"
+alias gc="git commit -m"
+alias gm="git commit --amend"
+alias gp="git push origin HEAD"
+alias gd="git diff"
+alias gs="git status -s"
+alias gco="git checkout"
+alias gt="git tag"
