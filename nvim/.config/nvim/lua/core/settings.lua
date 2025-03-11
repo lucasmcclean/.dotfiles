@@ -56,3 +56,8 @@ vim.opt.wildmode = "longest:list,full"
 
 -- Netrw
 vim.g.netrw_fastbrowse = 0
+
+-- Remaps for MacOS
+if vim.fn.has("mac") == 1 then
+  vim.keymap.set("i", "jk", "<Esc>", { noremap = true, silent = true })
+end
