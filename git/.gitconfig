@@ -1,6 +1,7 @@
 [user]
 	email = lucksdeveloper@gmail.com
   signingkey = /home/lucas/.ssh/id_ed25519.pub
+	name = Lucas McClean
 [gpg]
   format = ssh
 [commit]
