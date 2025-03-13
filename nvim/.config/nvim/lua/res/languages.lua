@@ -2,7 +2,7 @@ return {
   html = {
     server = "html",
     config = {
-      filetypes = { "html", "javascript", "typescript", "javascriptreact", "typescriptreact" },
+      filetypes = { "html", "js", "ts", "jsx", "tsx" },
     },
   },
   python = {
