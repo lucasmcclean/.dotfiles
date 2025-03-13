@@ -11,9 +11,6 @@ export GDK_BACKEND=wayland
 
 export WLR_NO_HARDWARE_CURSORS=1
 
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_DATA_HOME="$HOME/.local/share"
-
 if [[ -z $DISPLAY ]] && [[ $(tty) == /dev/tty1 ]]; then
   exec dbus-launch --exit-with-session Hyprland
 fi
