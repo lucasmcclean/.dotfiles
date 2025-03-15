@@ -11,11 +11,15 @@ return {
   {
     "williamboman/mason-lspconfig.nvim",
     config = function()
+      local mason_langs = {}
+      for _, lang in pairs(languages) do
+        if not lang.skip_mason then
+          table.insert(mason_langs, lang.server)
+        end
+      end
+
       require("mason-lspconfig").setup({
-        ensure_installed = vim.tbl_values(vim.tbl_map(
-          function(lang)
-            return lang.server
-          end, languages)),
+        ensure_installed = mason_langs,
       })
     end,
   },
