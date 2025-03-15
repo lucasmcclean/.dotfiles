@@ -20,10 +20,6 @@ vim.keymap.set(
   { desc = "[F]ind [F]ile", noremap = true, silent = true }
 )
 
--- Clipboard
-vim.keymap.set("n", "d", '"_d')
-vim.keymap.set("n", "c", '"_c')
-
 -- Language
 vim.keymap.set("n", "<leader>f", "<cmd>lua vim.lsp.buf.format()<CR>", { noremap = true, silent = true })
 
