@@ -2,7 +2,7 @@ return {
   html = {
     server = "html",
     config = {
-      filetypes = { "html", "js", "ts", "jsx", "tsx" },
+      filetypes = { "html", "javascript", "javascriptreact" },
     },
   },
   python = {
@@ -76,5 +76,9 @@ return {
       cmd = { "clangd", "--background-index" },
       filetypes = { "c", "cpp", "objc", "objcpp" },
     },
+  },
+  tailwind = {
+    server = "tailwindcss",
+    config = {},
   },
 }
