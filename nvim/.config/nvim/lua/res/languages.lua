@@ -80,5 +80,14 @@ return {
   tailwind = {
     server = "tailwindcss",
     config = {},
+    skip_treesitter = true,
+  },
+  gdscript = {
+    server = "gdscript",
+    config = {
+      filetypes = { "gd", "gdscript", "gdscript3" },
+    },
+    skip_treesitter = true,
+    skip_mason = true,
   },
 }

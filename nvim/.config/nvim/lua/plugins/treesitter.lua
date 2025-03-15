@@ -1,20 +1,27 @@
 local languages = require("res.languages")
 
-return {
-	{
-		"nvim-treesitter/nvim-treesitter",
-		build = ":TSUpdate",
-		opts = {
-			ensure_installed = vim.tbl_keys(languages),
-			auto_install = true,
-			indent = { enable = true },
-			highlight = { enable = true },
-		},
-		config = function(_, opts)
-			require("nvim-treesitter.install").prefer_git = true
-			require("nvim-treesitter.configs").setup(opts)
-		end,
-	},
+local treesitter_langs = {}
+for lang, config in pairs(languages) do
+  if not config.skip_treesitter then
+    table.insert(treesitter_langs, lang)
+  end
+end
 
-	{ "nvim-treesitter/nvim-treesitter-textobjects" },
+return {
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    opts = {
+      ensure_installed = treesitter_langs,
+      auto_install = true,
+      indent = { enable = true },
+      highlight = { enable = true },
+    },
+    config = function(_, opts)
+      require("nvim-treesitter.install").prefer_git = true
+      require("nvim-treesitter.configs").setup(opts)
+    end,
+  },
+
+  { "nvim-treesitter/nvim-treesitter-textobjects" },
 }
