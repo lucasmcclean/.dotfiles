@@ -24,6 +24,8 @@ return {
     end,
   },
 
+  { "WhoIsSethDaniel/mason-tool-installer.nvim" },
+
   {
     "neovim/nvim-lspconfig",
     config = function()
