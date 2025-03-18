@@ -1,7 +1,7 @@
 [user]
-	email = lucksdeveloper@gmail.com
+  email = lucksdeveloper@gmail.com
   signingkey = ~/.ssh/id_ed25519.pub
-	name = Lucas McClean
+  name = Lucas McClean
 [gpg]
   format = ssh
 [commit]
@@ -9,7 +9,12 @@
 [tag]
   gpgsign = true
 [filter "lfs"]
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
-	clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+  clean = git-lfs clean -- %f
+[core]
+  excludesfile = ~/.gitignore
+  editor = vim
+[color]
+  ui = auto
