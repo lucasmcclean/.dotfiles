@@ -1,4 +1,4 @@
-local lsp_keymaps = require("core.lsp_keymaps")
+local language_keymaps = require("core.language_keymaps")
 
 vim.api.nvim_create_autocmd("TextYankPost", {
   desc = "Highlight when yanking text",
@@ -8,18 +8,10 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
-vim.api.nvim_create_autocmd("BufWritePre", {
-  desc = "Format the document before saving",
-  pattern = "*",
-  callback = function()
-    vim.lsp.buf.format()
-  end,
-})
-
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
   callback = function(event)
-    lsp_keymaps.set_lsp_keymaps(event.buf)
+    language_keymaps.set_keymaps(event.buf)
   end,
 })
 
@@ -29,3 +21,11 @@ vim.api.nvim_create_autocmd("LspDetach", {
     vim.lsp.buf.clear_references()
   end,
 })
+
+--[[ vim.api.nvim_create_autocmd("BufWritePre", {
+  desc = "Format the document before saving",
+  pattern = "*",
+  callback = function()
+    vim.lsp.buf.format()
+  end,
+}) ]]
