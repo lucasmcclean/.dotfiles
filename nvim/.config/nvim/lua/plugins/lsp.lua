@@ -10,10 +10,8 @@ return {
 			local lspconfig = require("lspconfig")
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-			local servers = {}
 			for _, config in pairs(langs) do
 				if config.lsp and config.lsp.server then
-					servers[#servers + 1] = config.lsp.server
 					local lsp_config = vim.tbl_deep_extend("force", config.lsp.config or {}, {
 						capabilities = capabilities,
 					})

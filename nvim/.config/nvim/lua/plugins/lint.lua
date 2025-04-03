@@ -44,7 +44,9 @@ return {
 			for _, config in pairs(langs) do
 				if config.formatters and config.formatters.list then
 					for _, formatter in pairs(config.formatters.list) do
-						table.insert(ensure_installed, formatter.name or formatter)
+						if type(formatter) == "string" or not formatter.no_install then
+							table.insert(ensure_installed, formatter.name or formatter)
+						end
 					end
 				end
 			end

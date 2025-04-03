@@ -64,15 +64,6 @@ return {
 			},
 			filetypes = { "go" },
 		},
-		linters = {
-			list = {
-				{
-					name = "golangci-lint",
-					args = { "run", "--output.json.path=stdout", "--show-stats=false", "--issues-exit-code", "0" },
-				},
-			},
-			filetypes = { "go" },
-		},
 		formatters = {
 			list = { --[["gofmt"]]
 			},
