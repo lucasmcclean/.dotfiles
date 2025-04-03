@@ -14,13 +14,21 @@ vim.opt.foldmethod = "manual"
 
 -- Display
 vim.opt.list = true
+vim.opt.list = true
+vim.opt.listchars = {
+    tab = "- ",
+    space = " ",
+    trail = "·",
+    extends = "»",
+    precedes = "«",
+    nbsp = "␣",
+}
 vim.opt.number = true
 vim.opt.scrolloff = 10
 vim.opt.showmode = false
 vim.opt.cursorline = true
 vim.opt.signcolumn = "yes"
---TODO: Install
--- vim.g.have_nerd_font = true
+vim.g.have_nerd_font = true
 vim.opt.termguicolors = true
 vim.opt.relativenumber = true
 
