@@ -1,0 +1,32 @@
+[user]
+    name = <Your Name>
+    email = <Your Email>
+    signingkey = </path/to/.ssh/key.pub>
+
+[core]
+    editor = nvim
+    autocrlf = input
+
+[push]
+    default = simple
+
+[pull]
+    rebase = true
+
+[merge]
+    tool = vimdiff
+
+[diff]
+    tool = vimdiff
+
+[color]
+    ui = auto
+
+[credential]
+    helper = cache
+
+[commit]
+    gpgSign = true
+
+[gpg]
+    format = ssh
