@@ -1,6 +1,6 @@
 # Check if shell is interactive
 if [[ $- != *i* ]] ; then
-	return
+    return
 fi
 
 # Source global definitions
@@ -8,8 +8,9 @@ if [ -f /etc/bashrc ]; then
     . /etc/bashrc
 fi
 
-# Ignore doas for completion
+# Ignore doas and sudo for completion
 complete -F _root_command doas
+complete -F _root_command sudo
 
 # Allow scripts to use aliases
 shopt -s expand_aliases
@@ -23,7 +24,3 @@ if [ -d ~/.bashrc.d ]; then
         [ -f "$rc" ] && . "$rc"
     done
 fi
-
-# Set XDG directories
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_DATA_HOME="$HOME/.local/share"
