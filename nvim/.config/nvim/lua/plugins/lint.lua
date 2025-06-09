@@ -1,58 +1,38 @@
-local langs = require("languages")
+local langs = require("config.langs")
 
 return {
-	{
-		"mfussenegger/nvim-lint",
-		event = { "BufReadPre", "BufNewFile" },
-		config = function()
-			local lint = require("lint")
-			local linters_by_ft = {}
+  {
+    "mfussenegger/nvim-lint",
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      local lint = require("lint")
 
-			for _, config in pairs(langs) do
-				if config.linters and config.linters.list and config.linters.filetypes then
-					for _, linter in ipairs(config.linters.list) do
-						for _, ft in pairs(config.linters.filetypes) do
-							if not linters_by_ft[ft] then
-								linters_by_ft[ft] = {}
-							end
-							table.insert(linters_by_ft[ft], linter.name or linter)
-						end
-						if type(linter) == "table" then
-							lint.linters[linter.name] = vim.tbl_deep_extend("force", lint.linters[linter.name] or {}, {
-								args = linter.args or {},
-								cmd = linter.cmd or linter.name or linter,
-								ignore_exitcode = linter.ignore_exitcode or false,
-								parser = linter.parser or nil,
-								stdin = linter.stdin or false,
-								stream = linter.stream or nil,
-							})
-						end
-					end
-				end
-			end
-			lint.linters_by_ft = linters_by_ft
-		end,
-	},
+      lint.linters.clippy = {
+        cmd = "cargo",
+        stdin = false,
+        args = { "clippy", "--message-format", "short" },
+        stream = "stderr",
+        parser = require("lint.parser").from_errorformat("%f:%l:%c: %m", {
+          source = "clippy",
+          severity = vim.diagnostic.severity.WARN,
+        }),
+      }
 
-	{
-		"rshkarin/mason-nvim-lint",
-		dependencies = {
-			"williamboman/mason.nvim",
-		},
-		config = function()
-			local ensure_installed = {}
-			for _, config in pairs(langs) do
-				if config.formatters and config.formatters.list then
-					for _, formatter in pairs(config.formatters.list) do
-						if type(formatter) == "string" or not formatter.no_install then
-							table.insert(ensure_installed, formatter.name or formatter)
-						end
-					end
-				end
-			end
-			require("mason-nvim-lint").setup({
-				ensure_installed = ensure_installed,
-			})
-		end,
-	},
+      lint.linters.golangci_lint = {
+        cmd = "golangci-lint",
+        stdin = false,
+        args = { "run", "--out-format", "line-number" },
+        stream = "stdout",
+        parser = require("lint.parser").from_errorformat("%f:%l:%c: %m", {
+          source = "golangci-lint",
+          severity = vim.diagnostic.severity.WARN,
+        }),
+      }
+
+      lint.linters_by_ft = vim.tbl_deep_extend("force", {}, langs.linters_by_ft, {
+        go   = { "golangci_lint" },
+        rust = { "clippy" },
+      })
+    end
+  },
 }
