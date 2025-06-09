@@ -1,118 +1,42 @@
-@define-color active rgb(255, 255, 255);
-@define-color background rgb(0, 0, 0);
-@define-color foreground rgb(255, 255, 255);
+@define-color background  rgba(0, 0, 0, 0.0);
+@define-color border      rgba(0, 0, 0, 0.0);
+@define-color foreground  rgba(255, 245, 240, 1.0);
+@define-color bar         rgba(0, 0, 0, 0.8);
 
 * {
-  font-size: 18px;
-  font-family: "Hack, Symbols Nerd Font";
-  min-width: 8px;
-  min-height: 0px;
-  border: none;
-  border-radius: 0;
-  box-shadow: none;
-  text-shadow: none;
-  padding: 0px;
-
+  font-family: "Roboto Slab";
+  font-size: 14px;
+  color: @foreground;
 }
 
 window#waybar {
-  transition-property: background-color;
-  transition-duration: 0.5s;
-  border-radius: 8px;
-  background: alpha(@background, 0.7);
-  color: lighter(@active);
+  background: @bar;
+  border: 0px solid @border;
+  border-radius: 10px;
 }
 
-menu,
-tooltip {
-  border-radius: 8px;
-  padding: 2px;
-  background: alpha(@background, 0.6);
-  color: lighter(@active);
-}
-
-menu label,
-tooltip label {
-  color: lighter(@active);
-}
-
+.modules-left,
+.modules-center,
 .modules-right {
-  margin: 0px 6px 6px 6px;
-}
-
-.modules-center {
-  margin: 0px 6px 0px 6px;
-}
-
-.modules-left {
-  margin: 6px 6px 6px 6px;
-}
-
-#network,
-#backlight,
-#battery,
-#wireplumber,
-#mic {
-  border-radius: 4px;
-  margin: 4px 0px;
-}
-
-#workspaces {
-  margin: 0px 2px;
-  padding: 4px 0px 0px 0px;
-  border-radius: 8px;
+  background: @background;
+  border-radius: 10px;
+  padding: 5px 10px;
 }
 
 #workspaces button {
-  margin: 4px 0px;
-  padding: 4px 4px;
-  color: alpha(@foreground, 0.3);
-  background: transparent;
-  border-radius: 4px;
-  transition-property: background-color;
-  transition-duration: 0.2s;
+  all: unset;
+  color: @foreground;
+  padding: 0px 6px;
+  font-size: 16px;
 }
 
 #workspaces button.active {
-  /* background: alpha(@active, 0.4); */
-  color: lighter(@active);
+  color: @foreground;
 }
 
+#clock,
+#network,
+#bluetooth,
 #battery {
-  padding: 4px 0px;
-}
-
-#battery.discharging.warning {
-  animation-name: blink-yellow;
-  animation-duration: 1s;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-}
-
-#battery.discharging.critical {
-  animation-name: blink-red;
-  animation-duration: 1s;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-}
-
-#clock {
-  font-weight: bold;
-  padding: 4px 2px 2px 2px;
-}
-
-@keyframes blink-red {
-  to {
-    background-color: #c64d4f;
-    color: @foreground;
-  }
-}
-
-@keyframes blink-yellow {
-  to {
-    background-color: #cf9022;
-    color: @foreground;
-  }
+  padding: 0 6px;
 }
