@@ -1,0 +1,24 @@
+font=Hack 12
+format=<b>%a⏵</b> %s\n%b
+sort=-time
+layer=overlay
+anchor=bottom-right
+background-color=#2e2e2e
+width=300
+height=110
+margin=7
+padding=0,5,10
+border-size=2
+border-color=#888888
+border-radius=5
+icons=0
+max-icon-size=64
+default-timeout=7000
+ignore-timeout=1
+
+[urgency=normal]
+border-color=#aaaaaa
+
+[urgency=high]
+border-color=#dddddd
+default-timeout=0
