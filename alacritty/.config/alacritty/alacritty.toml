@@ -1,6 +1,6 @@
 [window]
 
-padding = { x = 7, y = 7 }
+padding = { x = 3, y = 3 }
 decorations = "None"
 blur = true
 opacity = 0.9
