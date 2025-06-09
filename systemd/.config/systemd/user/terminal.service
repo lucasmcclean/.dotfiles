@@ -1,0 +1,10 @@
+[Unit]
+Description=Terminal launcher (Alacritty)
+After=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/uwsm app -- alacritty
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

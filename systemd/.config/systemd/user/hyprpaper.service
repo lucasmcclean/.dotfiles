@@ -1,0 +1,10 @@
+[Unit]
+Description=Wallpaper daemon
+After=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/uwsm app -- hyprpaper
+Restart=on-failure
+
+[Install]
+WantedBy=graphical-session.target

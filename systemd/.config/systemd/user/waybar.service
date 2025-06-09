@@ -1,0 +1,10 @@
+[Unit]
+Description=Waybar status bar
+After=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/uwsm app -- waybar
+Restart=on-failure
+
+[Install]
+WantedBy=graphical-session.target

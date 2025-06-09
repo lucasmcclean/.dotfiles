@@ -1,0 +1,10 @@
+[Unit]
+Description=Hyprland Lock Screen
+After=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/hyprlock
+Restart=on-failure
+
+[Install]
+WantedBy=graphical-session.target
