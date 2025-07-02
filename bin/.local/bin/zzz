@@ -1,6 +1,4 @@
 #!/bin/bash
 
 # Lock the screen then suspend
-hyprlock &
-sleep .2
-systemctl suspend
+(hyprlock & sleep 0.2); systemctl suspend

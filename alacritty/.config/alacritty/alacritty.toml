@@ -3,7 +3,7 @@
 padding = { x = 3, y = 3 }
 decorations = "None"
 blur = true
-opacity = 0.7
+opacity = 0.85
 
 
 [font]

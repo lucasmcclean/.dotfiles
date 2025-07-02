@@ -1,7 +1,7 @@
 @define-color background  rgba(0, 0, 0, 0.0);
 @define-color border      rgba(0, 0, 0, 0.0);
 @define-color foreground  rgba(255, 245, 240, 1.0);
-@define-color bar         rgba(0, 0, 0, 0.8);
+@define-color bar         rgba(0, 0, 0, 0.0);
 
 * {
   font-family: "Roboto Slab";
@@ -12,7 +12,7 @@
 window#waybar {
   background: @bar;
   border: 0px solid @border;
-  border-radius: 10px;
+  border-radius: 0px;
 }
 
 .modules-left,
