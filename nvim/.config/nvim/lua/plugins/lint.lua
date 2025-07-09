@@ -1,5 +1,3 @@
-local langs = require("config.langs")
-
 return {
   {
     "mfussenegger/nvim-lint",
@@ -29,10 +27,13 @@ return {
         }),
       }
 
-      lint.linters_by_ft = vim.tbl_deep_extend("force", {}, langs.linters_by_ft, {
-        go   = { "golangci_lint" },
-        rust = { "clippy" },
-      })
-    end
+      lint.linters_by_ft = {
+        python = { "ruff" },
+        javascript = { "eslint_d" },
+        typescript = { "eslint_d" },
+        html = { "htmlhint" },
+        css = { "stylelint" },
+      }
+    end,
   },
 }

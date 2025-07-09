@@ -7,27 +7,25 @@ return {
       "nvim-telescope/telescope-fzf-native.nvim",
       build = "make",
       cond = function()
-        return vim.fn.executable "make" == 1
+        return vim.fn.executable("make") == 1
       end,
     },
     { "nvim-telescope/telescope-ui-select.nvim" },
     {
       "nvim-tree/nvim-web-devicons",
-      enabled = vim.g.have_nerd_font
+      enabled = vim.g.have_nerd_font,
     },
   },
   config = function()
-    require("telescope").setup {
+    require("telescope").setup({
       extensions = {
         ["ui-select"] = {
           require("telescope.themes").get_dropdown(),
         },
       },
-    }
+    })
 
     pcall(require("telescope").load_extension, "fzf")
     pcall(require("telescope").load_extension, "ui-select")
-
-    require("core.telescope_keymaps").set_telescope_keymaps()
   end,
 }
