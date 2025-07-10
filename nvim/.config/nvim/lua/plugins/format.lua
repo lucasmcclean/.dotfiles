@@ -5,7 +5,7 @@ return {
     config = function()
       require("conform").setup({
         formatters_by_ft = {
-          go = { "goimports", "gofumpt" },
+          go = { "goimports", "gofumpt", "gofmt" },
           python = { "ruff" },
           lua = { "stylua" },
           rust = { "rustfmt" },
@@ -13,6 +13,7 @@ return {
           typescript = { "prettier" },
           html = { "prettier" },
           css = { "prettier" },
+          svelte = { "prettier" },
           ["*"] = { "trim_whitespace" },
         },
       })
