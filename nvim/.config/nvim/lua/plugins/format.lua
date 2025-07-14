@@ -14,7 +14,24 @@ return {
           html = { "prettier" },
           css = { "prettier" },
           svelte = { "prettier" },
-          ["*"] = { "trim_whitespace" },
+          markdown = { "prettier-markdown" },
+        },
+        formatters = {
+          ["prettier-markdown"] = {
+            command = "prettier",
+            args = {
+              "--parser",
+              "markdown",
+              "--print-width",
+              "80",
+              "--prose-wrap",
+              "always",
+              "--use-tabs",
+              "--embedded-language-formatting",
+              "auto",
+            },
+            stdin = true,
+          },
         },
         format_after_save = {
           lsp_fallback = false,

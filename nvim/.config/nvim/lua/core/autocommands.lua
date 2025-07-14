@@ -20,24 +20,11 @@ vim.api.nvim_create_autocmd("LspDetach", {
   end,
 })
 
-local md_wrap_group = vim.api.nvim_create_augroup("md-wrap", { clear = true })
-
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "markdown",
-  group = md_wrap_group,
+  group = vim.api.nvim_create_augroup("md-wrap", { clear = true }),
   callback = function()
     vim.opt_local.textwidth = 80
     vim.opt_local.formatoptions:append("t")
-  end,
-})
-
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*.md",
-  group = md_wrap_group,
-  callback = function()
-    vim.cmd("normal! mz")
-    vim.fn.execute("1,/^---$/normal! j")
-    vim.fn.execute("/^---$/+1,$normal! gq")
-    vim.cmd("normal! `z")
   end,
 })
