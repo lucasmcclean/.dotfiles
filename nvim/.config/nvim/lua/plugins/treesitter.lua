@@ -68,9 +68,16 @@ return {
     config = function(_, opts)
       require("nvim-treesitter.configs").setup(opts)
 
-      vim.opt.foldmethod = "expr"
-      vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-      vim.opt.foldtext = ""
+      local has_parser =
+        require("nvim-treesitter.parsers").has_parser(vim.bo.filetype)
+
+      if has_parser then
+        vim.opt.foldmethod = "expr"
+        vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+        vim.opt.foldtext = ""
+      else
+        vim.opt.foldmethod = "manual" -- or 'indent', or disable folding
+      end
     end,
   },
 }
