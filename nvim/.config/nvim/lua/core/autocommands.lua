@@ -36,7 +36,8 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   group = md_wrap_group,
   callback = function()
     vim.cmd("normal! mz")
-    vim.cmd("normal! ggVGgq")
+    vim.fn.execute("1,/^---$/normal! j")
+    vim.fn.execute("/^---$/+1,$normal! gq")
     vim.cmd("normal! `z")
   end,
 })
