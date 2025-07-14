@@ -1,22 +1,3 @@
-local langs = {
-  "bash",
-  "c",
-  "cpp",
-  "css",
-  "go",
-  "html",
-  "javascript",
-  "json",
-  "lua",
-  "python",
-  "rust",
-  "typescript",
-  "tsx",
-  "vim",
-  "yaml",
-  "svelte",
-}
-
 return {
   {
     "nvim-treesitter/nvim-treesitter",
@@ -26,7 +7,24 @@ return {
       "nvim-treesitter/nvim-treesitter-textobjects",
     },
     opts = {
-      ensure_installed = langs,
+      ensure_installed = {
+        "bash",
+        "c",
+        "cpp",
+        "css",
+        "go",
+        "html",
+        "javascript",
+        "json",
+        "lua",
+        "python",
+        "rust",
+        "typescript",
+        "tsx",
+        "vim",
+        "yaml",
+        "svelte",
+      },
       highlight = { enable = true },
       indent = { enable = true },
       textobjects = {

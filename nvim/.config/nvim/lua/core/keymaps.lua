@@ -5,7 +5,6 @@ local lint = require("lint")
 local telescope = require("telescope.builtin")
 
 function M.set_lsp_keymaps(bufnr)
-  -- Go to definitions, references, etc with Telescope and LSP
   vim.keymap.set(
     "n",
     "gd",
@@ -49,7 +48,6 @@ function M.set_lsp_keymaps(bufnr)
     { buffer = bufnr, desc = "LSP: [W]orkspace [S]ymbols", silent = true }
   )
 
-  -- Rename, code action, hover
   vim.keymap.set(
     "n",
     "<leader>rn",
@@ -69,7 +67,6 @@ function M.set_lsp_keymaps(bufnr)
     { buffer = bufnr, desc = "LSP: Hover Documentation", silent = true }
   )
 
-  -- Diagnostics navigation and float
   vim.keymap.set(
     "n",
     "[d",
@@ -89,7 +86,6 @@ function M.set_lsp_keymaps(bufnr)
     { buffer = bufnr, desc = "Show [C]ode [D]iagnostics", silent = true }
   )
 
-  -- Toggle inlay hints if supported
   if vim.lsp.inlay_hint and vim.lsp.buf.inlay_hint then
     vim.keymap.set("n", "<leader>h", function()
       vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
@@ -98,7 +94,6 @@ function M.set_lsp_keymaps(bufnr)
 end
 
 function M.set_general_keymaps()
-  -- Buffer management & navigation
   vim.keymap.set(
     "n",
     "<leader>e",
@@ -129,7 +124,6 @@ function M.set_general_keymaps()
     silent = true,
   })
 
-  -- Search: clear highlights
   vim.keymap.set(
     "n",
     "<Esc>",
@@ -137,7 +131,6 @@ function M.set_general_keymaps()
     { noremap = true, silent = true }
   )
 
-  -- Format (global because conform can run without LSP)
   vim.keymap.set("n", "<leader>f", function()
     format.format({ async = true, lsp_fallback = true })
   end, { desc = "[F]ormat Buffer", noremap = true, silent = true })
@@ -146,7 +139,6 @@ function M.set_general_keymaps()
     format.format({ async = true, lsp_fallback = true })
   end, { desc = "[F]ormat [W]orkspace", noremap = true, silent = true })
 
-  -- Lint (global)
   vim.keymap.set("n", "<leader>l", function()
     lint.try_lint()
   end, { desc = "[L]int Buffer", noremap = true, silent = true })
@@ -217,7 +209,6 @@ function M.set_telescope_keymaps()
     { desc = "[ ] Find existing buffers", noremap = true, silent = true }
   )
 
-  -- Fuzzy find in current buffer dropdown
   vim.keymap.set("n", "<leader>/", function()
     telescope.current_buffer_fuzzy_find(
       require("telescope.themes").get_dropdown({
@@ -231,7 +222,6 @@ function M.set_telescope_keymaps()
     silent = true,
   })
 
-  -- Live grep in open files only
   vim.keymap.set("n", "<leader>s/", function()
     telescope.live_grep({
       grep_open_files = true,
@@ -239,7 +229,6 @@ function M.set_telescope_keymaps()
     })
   end, { desc = "[S]earch [/] in Open Files", noremap = true, silent = true })
 
-  -- Find Neovim config files
   vim.keymap.set("n", "<leader>sn", function()
     telescope.find_files({ cwd = vim.fn.stdpath("config") })
   end, { desc = "[S]earch [N]eovim files", noremap = true, silent = true })
