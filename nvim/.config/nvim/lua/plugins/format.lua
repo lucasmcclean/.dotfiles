@@ -16,6 +16,11 @@ return {
           svelte = { "prettier" },
           ["*"] = { "trim_whitespace" },
         },
+        format_after_save = {
+          lsp_fallback = false,
+          async = true,
+          timeout_ms = 1000,
+        },
       })
     end,
   },
