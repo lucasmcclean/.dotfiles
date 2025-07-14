@@ -34,6 +34,13 @@ return {
         html = { "htmlhint" },
         css = { "stylelint" },
       }
+
+      vim.api.nvim_create_autocmd("BufWritePost", {
+        callback = function()
+          local ft = vim.bo.filetype
+          if lint.linters_by_ft[ft] ~= nil then lint.try_lint() end
+        end,
+      })
     end,
   },
 }
