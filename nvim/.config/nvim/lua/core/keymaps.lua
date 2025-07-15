@@ -67,18 +67,22 @@ function M.set_lsp_keymaps(bufnr)
     { buffer = bufnr, desc = "LSP: Hover Documentation", silent = true }
   )
 
-  vim.keymap.set(
-    "n",
-    "[d",
-    vim.diagnostic.goto_prev,
-    { desc = "Previous [D]iagnostic", noremap = true, silent = true }
-  )
-  vim.keymap.set(
-    "n",
-    "]d",
-    vim.diagnostic.goto_next,
-    { desc = "Next [D]iagnostic", noremap = true, silent = true }
-  )
+  vim.keymap.set("n", "]d", function()
+    vim.diagnostic.jump({ count = 1, float = true })
+  end, {
+    desc = "Next [D]iagnostic",
+    noremap = true,
+    silent = true,
+  })
+
+  vim.keymap.set("n", "[d", function()
+    vim.diagnostic.jump({ count = -1, float = true })
+  end, {
+    desc = "Previous [D]iagnostic",
+    noremap = true,
+    silent = true,
+  })
+
   vim.keymap.set(
     "n",
     "<leader>cd",
