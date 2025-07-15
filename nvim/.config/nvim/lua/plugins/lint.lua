@@ -33,6 +33,7 @@ return {
         typescript = { "eslint_d" },
         html = { "htmlhint" },
         css = { "stylelint" },
+        lua = { "selene" },
       }
 
       vim.api.nvim_create_autocmd("BufWritePost", {

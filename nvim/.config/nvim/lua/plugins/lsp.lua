@@ -7,7 +7,7 @@ return {
       local lspconfig = require("lspconfig")
       local caps = require("cmp_nvim_lsp").default_capabilities()
 
-      local function on_attach(client, bufnr) end
+      local function on_attach(_, _) end
 
       local function setup_server(name, opts)
         opts = opts or {}
