@@ -8,7 +8,7 @@ return {
           go = { "goimports", "gofumpt", "gofmt" },
           python = { "ruff" },
           lua = { "stylua" },
-          rust = { "rustfmt" },
+          rust = { "rustfmt", "cargo sort-derives" },
           javascript = { "prettier" },
           typescript = { "prettier" },
           html = { "prettier" },
