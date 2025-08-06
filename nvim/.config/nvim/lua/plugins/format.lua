@@ -14,7 +14,18 @@ return {
           html = { "prettier" },
           css = { "prettier" },
           svelte = { "prettier" },
-          markdown = { "mdformat" },
+          markdown = { "mdformat-wrap" },
+        },
+        formatters = {
+          ["mdformat-wrap"] = {
+            command = "mdformat",
+            args = {
+              "--wrap",
+              "80",
+              "$FILENAME",
+            },
+            stdin = false,
+          },
         },
         format_after_save = {
           lsp_fallback = false,
