@@ -58,6 +58,7 @@ return {
         "dockerls", -- docker
         "marksman", -- markdown
         "clangd", -- c/c++
+        "jdtls", -- java
       }
 
       for _, server in ipairs(servers) do

@@ -18,7 +18,7 @@ return {
         },
         formatters = {
           ["mdformat-wrap"] = {
-            command = "mdformat",
+            command = "/home/lucas/.venvs/mdformat/bin/mdformat",
             args = {
               "--wrap",
               "80",
