@@ -59,6 +59,7 @@ return {
         "marksman", -- markdown
         "clangd", -- c/c++
         "jdtls", -- java
+        "gdscript", -- gdscript
       }
 
       for _, server in ipairs(servers) do
