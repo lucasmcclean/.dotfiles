@@ -12,9 +12,11 @@ set $not mako
 set $audio pipewire
 set $audio_man wireplumber
 
-output * bg /usr/share/backgrounds/dark_plant_pop_red.jpg fill
+exec_always export MOZ_ENABLE_WAYLAND=1
 
-seat seat0 xcursor_theme Bibata-Original-Classic 24
+# output * bg /usr/share/backgrounds/dark_plant_pop_red.jpg fill
+
+seat seat0 xcursor_theme Bibata-Modern-Classic 24
 
 exec swayidle -w \
     timeout 600 'swaymsg "output * dpms off"' \
