@@ -4,7 +4,6 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     dependencies = { "hrsh7th/cmp-nvim-lsp" },
     config = function()
-      local lspconfig = require("lspconfig")
       local caps = require("cmp_nvim_lsp").default_capabilities()
 
       local function on_attach(_, _) end
@@ -14,7 +13,9 @@ return {
         opts.capabilities = caps
         opts.on_attach = on_attach
         opts.flags = opts.flags or { debounce_text_changes = 150 }
-        lspconfig[name].setup(opts)
+
+        vim.lsp.config(name, opts)
+        vim.lsp.enable(name)
       end
 
       setup_server("ltex_plus", {
@@ -35,7 +36,9 @@ return {
         filetypes = { "markdown", "text", "latex" },
       })
 
-      setup_server("lua_ls", {
+      setup_server("lua", {
+        cmd = { "lua-language-server" },
+        filetypes = { "lua" },
         settings = {
           Lua = {
             diagnostics = { globals = { "vim" } },
@@ -44,27 +47,20 @@ return {
         },
       })
 
-      local servers = {
-        "pyright", -- python
-        "gopls", -- go
-        "rust_analyzer", -- rust
-        "ts_ls", -- typescript
-        "html", -- html
-        "cssls", -- css
-        "tailwindcss", -- tailwindcss
-        "svelte", -- svelte
-        "bashls", -- bash
-        "jsonls", -- json
-        "dockerls", -- docker
-        "marksman", -- markdown
-        "clangd", -- c/c++
-        "jdtls", -- java
-        "gdscript", -- gdscript
-      }
-
-      for _, server in ipairs(servers) do
-        setup_server(server)
-      end
+      setup_server("pyright")
+      setup_server("gopls")
+      setup_server("rust_analyzer")
+      setup_server("tsserver")
+      setup_server("html")
+      setup_server("cssls")
+      setup_server("svelte")
+      setup_server("bashls")
+      setup_server("jsonls")
+      setup_server("dockerls")
+      setup_server("marksman")
+      setup_server("clangd")
+      setup_server("jdtls")
+      setup_server("gdscript")
     end,
   },
 }
