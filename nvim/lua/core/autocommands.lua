@@ -46,7 +46,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
   pattern = "*",
   callback = function()
     if is_text_file() then
-      vim.opt.statusline = "  %f %m %= %{v:lua.wc_rt()}  %l,%c  %p%% "
+      vim.opt.statusline = "  %f %m %= %l,%c  %{v:lua.wc_rt()}  %p%%  "
     else
       vim.opt.statusline = "  %f %m %= %l,%c  %p%%  "
     end
