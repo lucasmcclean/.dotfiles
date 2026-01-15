@@ -38,18 +38,55 @@ return {
 
       setup_server("lua", {
         cmd = { "lua-language-server" },
-        filetypes = { "lua" },
         settings = {
           Lua = {
             diagnostics = { globals = { "vim" } },
             workspace = { library = vim.api.nvim_get_runtime_file("", true) },
           },
         },
+        filetypes = { "lua" },
       })
 
+      setup_server("jdtls", {
+        cmd = {
+          vim.fn.expand("~/.sdkman/candidates/java/21-tem/bin/java"),
+          "-Declipse.application=org.eclipse.jdt.ls.core.id1",
+          "-Dosgi.bundles.defaultStartLevel=4",
+          "-Declipse.product=org.eclipse.jdt.ls.core.product",
+          "-Dlog.protocol=true",
+          "-Dlog.level=ALL",
+          "-Xmx1G",
+          "-jar", vim.fn.glob(vim.fn.expand("~/.local/share/jdtls/plugins/org.eclipse.equinox.launcher_*.jar")),
+          "-configuration", vim.fn.expand("~/.local/share/jdtls/config_linux"),
+          "-data", vim.fn.expand("~/.local/share/jdtls/workspace"),
+        },
+        root_dir = require("lspconfig").util.root_pattern(
+          ".git", "mvnw", "gradlew", "pom.xml", "build.gradle"
+        )(vim.fn.getcwd()) or vim.fn.getcwd(),
+        settings = {
+          java = {
+            signatureHelp = { enabled = true },
+            contentProvider = { preferred = "fernflower" },
+            configuration = {
+              runtimes = {
+                {
+                  name = "JavaSE-11",
+                  path = vim.fn.expand("~/.sdkman/candidates/java/11.0.23-tem"),
+                },
+                {
+                  name = "JavaSE-21",
+                  path = vim.fn.expand("~/.sdkman/candidates/java/21-tem"),
+                },
+              },
+            },
+          },
+        },
+        filetypes = { "java" },
+      })
+
+      setup_server("rust_analyzer")
       setup_server("pyright")
       setup_server("gopls")
-      setup_server("rust_analyzer")
       setup_server("tsserver")
       setup_server("html")
       setup_server("cssls")
@@ -59,7 +96,6 @@ return {
       setup_server("dockerls")
       setup_server("marksman")
       setup_server("clangd")
-      setup_server("jdtls")
       setup_server("gdscript")
     end,
   },
