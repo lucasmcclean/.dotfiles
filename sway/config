@@ -57,6 +57,11 @@ bindsym $mod+Return exec $term
 bindsym $mod+b exec $browser
 # bindsym $mod+d exec $menu
 
+set $screenshot_out $(xdg-user-dir PICTURES)/screenshots/screenshot-$(date +"%Y%m%d-%H%M%S").png
+bindsym $mod+Shift+s exec grimshot save screen $screenshot_out
+bindsym $mod+Shift+a exec grimshot save active $screenshot_out
+bindsym $mod+Shift+r exec grimshot save area $screenshot_out
+
 bindsym $mod+q kill
 bindsym $mod+Shift+c reload
 
