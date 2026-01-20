@@ -4,8 +4,6 @@ if [ -z "$WAYLAND_DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ]; then
     export XDG_SESSION_DESKTOP=sway
     export XDG_DESKTOP_PORTAL_DIR /usr/share/xdg-desktop-portal/portals
 
-    export LIBSEAT_BACKEND=seatd
-
     export MOZ_ENABLE_WAYLAND=1
     export MOZ_WEBRENDER=0
     export MOZ_DBUS_REMOTE=1
