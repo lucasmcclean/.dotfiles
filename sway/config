@@ -10,14 +10,14 @@ set $browser firefox
 
 set $not mako
 set $audio pipewire
-set $audio_man wireplumber
 
 exec_always export MOZ_ENABLE_WAYLAND=1
 
 # output * bg /usr/share/backgrounds/dark_plant_pop_red.jpg fill
 
 seat seat0 xcursor_theme Bibata-Modern-Classic 24
-seat seat0 hide_cursor 2000
+
+font pango:Roboto Medium 10
 
 exec swayidle -w \
     timeout 600 'swaymsg "output * dpms off"' \
@@ -51,7 +51,6 @@ default_border pixel 0
 exec $not
 exec $term
 exec $audio
-exec $audio_man
 
 bindsym $mod+Return exec $term
 bindsym $mod+b exec $browser
