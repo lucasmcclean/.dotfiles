@@ -15,6 +15,7 @@ return {
           css = { "prettier" },
           svelte = { "prettier" },
           markdown = { "mdformat-wrap" },
+          java = { "clang-format" },
         },
         formatters = {
           ["mdformat-wrap"] = {
