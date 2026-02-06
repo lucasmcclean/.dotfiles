@@ -33,6 +33,7 @@ input type:touchpad {
 }
 
 focus_follows_mouse yes
+mouse_warping none
 
 gaps inner 0
 gaps outer 0
