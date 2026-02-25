@@ -84,7 +84,24 @@ return {
         filetypes = { "java" },
       })
 
-      setup_server("rust_analyzer")
+      setup_server("rust_analyzer", {
+        settings = {
+          ["rust-analyzer"] = {
+            checkOnSave = true,
+            check = {
+              command = "clippy",
+            },
+          },
+        }
+      })
+
+      setup_server("asm_lsp", {
+        root_dir = require("lspconfig").util.root_pattern(
+          ".asm-lsp.toml",
+          ".git"
+        ),
+      })
+
       setup_server("pyright")
       setup_server("gopls")
       setup_server("tsserver")
