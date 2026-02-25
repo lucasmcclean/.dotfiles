@@ -12,8 +12,8 @@ set $game_engine godot
 set $not mako
 set $audio pipewire
 
-output eDP-1 mode 1920x1200 scale 1.5
-output DP-2 mode 1920x1080 pos 1920 0 scale 1.5
+output eDP-1 mode 1920x1200 scale 1.5 bg ~/.dotfiles/backgrounds/wallpaper.png fill #000000
+output DP-2 mode 1920x1080 pos 1920 0 scale 1.5 bg ~/.dotfiles/backgrounds/wallpaper.png fill #000000
 
 seat seat0 xcursor_theme Bibata-Modern-Classic 24
 
