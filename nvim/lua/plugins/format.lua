@@ -16,6 +16,7 @@ return {
           svelte = { "prettier" },
           markdown = { "mdformat-wrap" },
           java = { "clang-format" },
+          gdscript = { "gdscript-format" },
         },
         formatters = {
           ["mdformat-wrap"] = {
@@ -26,6 +27,9 @@ return {
               "$FILENAME",
             },
             stdin = false,
+          },
+          ["gdscript-format"] = {
+            command = "gdscript-format",
           },
         },
         format_after_save = {
