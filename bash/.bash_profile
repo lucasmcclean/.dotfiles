@@ -1,7 +1,7 @@
-if [[ -f ~/.profile ]]; then
-    source ~/.profile
+if [ -f ~/.profile ]; then
+    . ~/.profile
 fi
 
-if [[ -f ~/.bashrc ]]; then
-    source ~/.bashrc
+if [ -f ~/.bashrc ]; then
+    . ~/.bashrc
 fi
