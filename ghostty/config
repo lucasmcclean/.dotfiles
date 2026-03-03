@@ -1,0 +1,23 @@
+background = 000000
+
+font-size = 16
+font-family = IosevkaTerm Nerd Font
+
+shell-integration = none
+
+title = " "
+
+window-decoration = none
+window-padding-x = 4
+window-padding-y = 4
+window-padding-balance = true
+window-padding-color = extend
+
+maximize
+mouse-hide-while-typing
+
+custom-shader = ./shaders/cursor_trail.glsl
+custom-shader = ./shaders/ripple_rectangle_cursor.glsl
+custom-shader-animation = true
+
+bell-features = no-audio, no-attention, no-title, no-border
