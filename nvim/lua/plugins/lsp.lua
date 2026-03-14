@@ -49,19 +49,30 @@ return {
 
       setup_server("jdtls", {
         cmd = {
-          vim.fn.expand("~/.sdkman/candidates/java/21-tem/bin/java"),
+          vim.fn.expand("~/.sdkman/candidates/java/21.0.10-tem/bin/java"),
           "-Declipse.application=org.eclipse.jdt.ls.core.id1",
           "-Dosgi.bundles.defaultStartLevel=4",
           "-Declipse.product=org.eclipse.jdt.ls.core.product",
           "-Dlog.protocol=true",
           "-Dlog.level=ALL",
           "-Xmx1G",
-          "-jar", vim.fn.glob(vim.fn.expand("~/.local/share/jdtls/plugins/org.eclipse.equinox.launcher_*.jar")),
-          "-configuration", vim.fn.expand("~/.local/share/jdtls/config_linux"),
-          "-data", vim.fn.expand("~/.local/share/jdtls/workspace"),
+          "-jar",
+          vim.fn.glob(
+            vim.fn.expand(
+              "/opt/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"
+            )
+          ),
+          "-configuration",
+          vim.fn.expand("~/.local/share/jdtls/config_linux"),
+          "-data",
+          vim.fn.expand("~/.cache/jdtls/workspace"),
         },
         root_dir = require("lspconfig").util.root_pattern(
-          ".git", "mvnw", "gradlew", "pom.xml", "build.gradle"
+          ".git",
+          "mvnw",
+          "gradlew",
+          "pom.xml",
+          "build.gradle"
         )(vim.fn.getcwd()) or vim.fn.getcwd(),
         settings = {
           java = {
@@ -70,12 +81,8 @@ return {
             configuration = {
               runtimes = {
                 {
-                  name = "JavaSE-11",
-                  path = vim.fn.expand("~/.sdkman/candidates/java/11.0.23-tem"),
-                },
-                {
                   name = "JavaSE-21",
-                  path = vim.fn.expand("~/.sdkman/candidates/java/21-tem"),
+                  path = vim.fn.expand("~/.sdkman/candidates/java/21.0.10-tem"),
                 },
               },
             },
@@ -92,7 +99,7 @@ return {
               command = "clippy",
             },
           },
-        }
+        },
       })
 
       setup_server("asm_lsp", {
