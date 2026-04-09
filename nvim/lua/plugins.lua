@@ -176,15 +176,12 @@ vim.defer_fn(function()
     signs = true,
     underline = true,
     update_in_insert = false,
-    virtual_text = {
-      spacing = 4,
-      source = 'if_many',
-      prefix = '●',
-    },
+    virtual_text = false,
   }
 
   vim.lsp.config.global = {
     capabilities = caps,
+    inlay_hints = { enabled = false },
   }
 
   vim.lsp.config.ltex_plus = {

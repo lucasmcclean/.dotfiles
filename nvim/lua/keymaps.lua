@@ -130,6 +130,18 @@ function M.set_lsp_keymaps(bufnr)
     local enabled = vim.lsp.inlay_hint.is_enabled { bufnr = bufnr }
     vim.lsp.inlay_hint.enable(not enabled, { bufnr = bufnr })
   end, { desc = 'Toggle Inlay [H]ints', silent = true })
+
+  vim.keymap.set('n', '<leader>v', function()
+    local cfg = vim.diagnostic.config()
+    local enabled = cfg.virtual_text ~= false
+    if enabled then
+      vim.diagnostic.config { virtual_text = false }
+    else
+      vim.diagnostic.config {
+        virtual_text = { spacing = 4, prefix = '●' },
+      }
+    end
+  end, { desc = 'Toggle [V]irtual Text', silent = true })
 end
 
 function M.set_general_keymaps()
