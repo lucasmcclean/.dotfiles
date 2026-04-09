@@ -81,7 +81,6 @@ vim.g.netrw_fastbrowse = 0
 vim.opt.statusline = table.concat {
   '  %f %m',
   '%=',
-  "%{&filetype == 'markdown' || &filetype == 'text' ? v:lua.wc_rt() : ''}",
   '  %l,%c',
   '  %p%%  ',
 }
