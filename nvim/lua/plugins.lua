@@ -9,6 +9,7 @@ local function loaded_animation()
     if autocmd_id then
       vim.api.nvim_del_autocmd(autocmd_id)
       autocmd_id = nil
+      vim.api.nvim_echo({ { '', 'Normal' } }, false, {})
     end
   end
 
