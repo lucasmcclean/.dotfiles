@@ -1,5 +1,73 @@
 local pack = vim.pack
 
+local function loaded_animation()
+  local active = true
+
+  local function cancel_animation() active = false end
+
+  vim.api.nvim_create_autocmd('CmdlineEnter', {
+    callback = cancel_animation,
+    once = true,
+  })
+
+  local function schedule(fn, delay)
+    vim.defer_fn(function()
+      if active then fn() end
+    end, delay)
+  end
+
+  local base_chars = { '░', '▒', '▓', ' ', ' ' }
+  local matrix_chars = { '0', '1' }
+  local line_length = 16
+  local frames = 90
+
+  local start_delay = 50
+  local end_delay = 40
+
+  for f = 1, frames do
+    local delay = start_delay
+      + (end_delay - start_delay) * (f - 1) / (frames - 1)
+
+    schedule(function()
+      local line = {}
+
+      local prob = math.min(1, f / (frames / 1.2))
+
+      for i = 1, line_length do
+        if math.random() < prob then
+          line[i] = matrix_chars[math.random(#matrix_chars)]
+        else
+          line[i] = base_chars[math.random(#base_chars)]
+        end
+      end
+
+      vim.api.nvim_echo({ { table.concat(line, ''), 'Normal' } }, false, {})
+    end, delay * f)
+  end
+
+  local ok_flash_count = 3
+  local ok_delay = 700
+
+  for flash = 0, ok_flash_count - 1 do
+    schedule(
+      function()
+        vim.api.nvim_echo({ { '0100111101001011', 'Normal' } }, false, {})
+      end,
+      end_delay * frames + flash * ok_delay * 2
+    )
+
+    schedule(
+      function() vim.api.nvim_echo({ { '', 'Normal' } }, false, {}) end,
+      end_delay * frames + flash * ok_delay * 2 + ok_delay
+    )
+  end
+
+  schedule(
+    function() vim.api.nvim_echo({ { '', 'Normal' } }, false, {}) end,
+    end_delay * frames + ok_flash_count * ok_delay * 2 + 10
+  )
+end
+
 pack.add {
   { src = 'https://github.com/windwp/nvim-autopairs' },
   { src = 'https://github.com/windwp/nvim-ts-autotag' },
@@ -24,6 +92,20 @@ pack.add {
   { src = 'https://github.com/folke/tokyonight.nvim' },
   { src = 'https://github.com/nvim-treesitter/nvim-treesitter' },
 }
+
+local tokyonight = require 'tokyonight'
+tokyonight.setup {
+  transparent = true,
+  styles = {
+    sidebars = 'transparent',
+    floats = 'transparent',
+  },
+}
+vim.cmd.colorscheme 'tokyonight'
+vim.api.nvim_set_hl(0, 'StatusLine', { bg = 'none', fg = '#a9b1d6' })
+vim.api.nvim_set_hl(0, 'StatusLineNC', { bg = 'none', fg = '#5c6370' })
+vim.api.nvim_set_hl(0, 'TabLineSel', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'MsgArea', { bg = 'none' })
 
 vim.defer_fn(function()
   require('nvim-autopairs').setup {}
@@ -111,21 +193,6 @@ vim.defer_fn(function()
       topdelete = { text = '‾' },
       changedelete = { text = '~' },
     },
-  }
-
-  require('snacks').setup {
-    picker = {
-      sources = {
-        explorer = {
-          exclude = { '*.uid', 'server.pipe' },
-        },
-      },
-    },
-  }
-
-  require('gdscript-extended-lsp').setup {
-    view_type = 'floating',
-    picker = 'snacks',
   }
 
   local lint = require 'lint'
@@ -291,21 +358,7 @@ vim.defer_fn(function()
   pcall(telescope.load_extension, 'fzf')
   pcall(telescope.load_extension, 'ui-select')
 
-  local tokyonight = require 'tokyonight'
-  tokyonight.setup {
-    transparent = true,
-    styles = {
-      sidebars = 'transparent',
-      floats = 'transparent',
-    },
-  }
-  vim.cmd.colorscheme 'tokyonight'
-  vim.api.nvim_set_hl(0, 'StatusLine', { bg = 'none', fg = '#a9b1d6' })
-  vim.api.nvim_set_hl(0, 'StatusLineNC', { bg = 'none', fg = '#5c6370' })
-  vim.api.nvim_set_hl(0, 'TabLineSel', { bg = 'none' })
-  vim.api.nvim_set_hl(0, 'MsgArea', { bg = 'none' })
-
-  vim.cmd 'TSUpdate'
+  vim.cmd 'silent! TSUpdate'
   require('nvim-treesitter').setup {
     ensure_installed = {
       'bash',
@@ -331,4 +384,21 @@ vim.defer_fn(function()
     highlight = { enable = true },
     indent = { enable = true },
   }
+
+  require('snacks').setup {
+    picker = {
+      sources = {
+        explorer = {
+          exclude = { '*.uid', 'server.pipe' },
+        },
+      },
+    },
+  }
+
+  require('gdscript-extended-lsp').setup {
+    view_type = 'floating',
+    picker = 'snacks',
+  }
+
+  loaded_animation()
 end, 0)
