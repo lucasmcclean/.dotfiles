@@ -2,9 +2,9 @@ local M = {}
 
 local format = require 'conform'
 local lint = require 'lint'
+local telescope = require 'telescope.builtin'
 
 function M.set_lsp_keymaps(bufnr)
-  local telescope = require 'telescope.builtin'
   vim.keymap.set(
     'n',
     'gd',
@@ -69,7 +69,17 @@ function M.set_lsp_keymaps(bufnr)
   )
 
   vim.keymap.set('n', 'K', function()
-    if vim.lsp.buf.server_ready() then
+    local all_ready = true
+
+    local clients = vim.lsp.get_clients { bufnr = 0 }
+    for _, client in ipairs(clients) do
+      if not client.initialized then
+        all_ready = false
+        break
+      end
+    end
+
+    if all_ready and #clients > 0 then
       vim.lsp.buf.hover()
     else
       vim.cmd 'normal! K'
@@ -88,6 +98,44 @@ function M.set_lsp_keymaps(bufnr)
     '[d',
     function() vim.diagnostic.goto_prev { float = true } end,
     { desc = 'Previous [D]iagnostic', silent = true }
+  )
+
+  local function show_or_copy_diagnostic()
+    local bufnr = 0
+    local line_diag = vim.diagnostic.get(bufnr, { lnum = vim.fn.line '.' - 1 })
+
+    if #line_diag == 0 then
+      print 'No diagnostics on this line'
+      return
+    end
+
+    local msg = table.concat(
+      vim.tbl_map(function(d) return d.message end, line_diag),
+      '\n'
+    )
+
+    vim.ui.select({ 'Copy Message', 'Open in Buffer' }, {
+      prompt = 'Diagnostic action: ',
+    }, function(choice)
+      if choice == 'Open in Buffer' then
+        local buf = vim.api.nvim_create_buf(false, true)
+        vim.api.nvim_buf_set_lines(buf, 0, -1, false, vim.split(msg, '\n'))
+        vim.api.nvim_buf_set_option(buf, 'bufhidden', 'wipe')
+        vim.api.nvim_buf_set_option(buf, 'filetype', 'text')
+        vim.api.nvim_command 'split'
+        vim.api.nvim_win_set_buf(0, buf)
+      elseif choice == 'Copy Message' then
+        vim.fn.setreg('+', msg)
+        print 'Diagnostic copied to clipboard'
+      end
+    end)
+  end
+
+  vim.keymap.set(
+    'n',
+    '<leader>cd',
+    show_or_copy_diagnostic,
+    { desc = 'Open/[C]opy [D]iagnostic', silent = true }
   )
 
   vim.keymap.set(
@@ -120,9 +168,9 @@ function M.set_lsp_keymaps(bufnr)
 
   vim.keymap.set(
     'n',
-    '<leader>cd',
+    '<leader>dd',
     vim.diagnostic.open_float,
-    { buffer = bufnr, desc = 'Show [C]ode [D]iagnostics', silent = true }
+    { buffer = bufnr, desc = '[D]isplay code [D]iagnostics', silent = true }
   )
 
   vim.keymap.set('n', '<leader>h', function()
