@@ -1,9 +1,7 @@
-require("core.settings")
+require 'settings'
+require 'plugins'
+require 'autocommands'
 
-require("setup.lazy")
-
-local keymaps = require("core.keymaps")
+local keymaps = require 'keymaps'
 keymaps.set_general_keymaps()
-keymaps.set_telescope_keymaps()
-
-require("core.autocommands")
+pcall(function() keymaps.set_telescope_keymaps() end)
