@@ -2,10 +2,17 @@ local pack = vim.pack
 
 local function loaded_animation()
   local active = true
+  local autocmd_id
 
-  local function cancel_animation() active = false end
+  local function cancel_animation()
+    active = false
+    if autocmd_id then
+      vim.api.nvim_del_autocmd(autocmd_id)
+      autocmd_id = nil
+    end
+  end
 
-  vim.api.nvim_create_autocmd('CmdlineEnter', {
+  autocmd_id = vim.api.nvim_create_autocmd('CmdlineEnter', {
     callback = cancel_animation,
     once = true,
   })
@@ -16,17 +23,17 @@ local function loaded_animation()
     end, delay)
   end
 
-  local base_chars = { '░', '▒', '▓', ' ', ' ' }
+  local base_chars = { '░', '▒', '▓', ' ', ' ', ' ' }
   local matrix_chars = { '0', '1' }
   local line_length = 16
-  local frames = 90
+  local frames = 70
 
   local start_delay = 50
-  local end_delay = 40
+  local end_delay = 50
 
   for f = 1, frames do
     local delay = start_delay
-      + (end_delay - start_delay) * (f - 1) / (frames - 1)
+      + (end_delay - start_delay) * (f - 1) / (frames - 1.2)
 
     schedule(function()
       local line = {}
