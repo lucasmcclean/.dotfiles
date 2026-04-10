@@ -2,19 +2,14 @@ local pack = vim.pack
 
 local function loaded_animation()
   local active = true
-  local autocmd_id
 
-  local function cancel_animation()
+  local function stop()
     active = false
-    if autocmd_id then
-      vim.api.nvim_del_autocmd(autocmd_id)
-      autocmd_id = nil
-      vim.api.nvim_echo({ { '', 'Normal' } }, false, {})
-    end
+    vim.api.nvim_echo({ { '', 'Normal' } }, false, {})
   end
 
-  autocmd_id = vim.api.nvim_create_autocmd('CmdlineEnter', {
-    callback = cancel_animation,
+  vim.api.nvim_create_autocmd('CmdlineEnter', {
+    callback = stop,
     once = true,
   })
 
@@ -24,56 +19,37 @@ local function loaded_animation()
     end, delay)
   end
 
-  local base_chars = { '░', '▒', '▓', ' ', ' ', ' ' }
-  local matrix_chars = { '0', '1' }
-  local line_length = 16
-  local frames = 70
+  local function draw(s) vim.api.nvim_echo({ { s, 'Normal' } }, false, {}) end
 
-  local start_delay = 50
-  local end_delay = 50
+  local width = 12
+  local delay = 0
+  local step_delay = 25
+  local flash_delay = 250
 
-  for f = 1, frames do
-    local delay = start_delay
-      + (end_delay - start_delay) * (f - 1) / (frames - 1.2)
-
-    schedule(function()
-      local line = {}
-
-      local prob = math.min(1, f / (frames / 1.2))
-
-      for i = 1, line_length do
-        if math.random() < prob then
-          line[i] = matrix_chars[math.random(#matrix_chars)]
-        else
-          line[i] = base_chars[math.random(#base_chars)]
-        end
-      end
-
-      vim.api.nvim_echo({ { table.concat(line, ''), 'Normal' } }, false, {})
-    end, delay * f)
-  end
-
-  local ok_flash_count = 3
-  local ok_delay = 700
-
-  for flash = 0, ok_flash_count - 1 do
+  for i = 1, width do
+    delay = delay + step_delay
     schedule(
-      function()
-        vim.api.nvim_echo({ { '0100111101001011', 'Normal' } }, false, {})
-      end,
-      end_delay * frames + flash * ok_delay * 2
-    )
-
-    schedule(
-      function() vim.api.nvim_echo({ { '', 'Normal' } }, false, {}) end,
-      end_delay * frames + flash * ok_delay * 2 + ok_delay
+      function() draw(string.rep(' ', width - i) .. string.rep(':', i)) end,
+      delay
     )
   end
 
-  schedule(
-    function() vim.api.nvim_echo({ { '', 'Normal' } }, false, {}) end,
-    end_delay * frames + ok_flash_count * ok_delay * 2 + 10
-  )
+  for i = 1, width - 1 do
+    delay = delay + step_delay
+    schedule(
+      function() draw(string.rep(':', width - i) .. string.rep(' ', i)) end,
+      delay
+    )
+  end
+
+  for i = 1, 2 do
+    delay = delay + flash_delay
+    schedule(function() draw '' end, delay)
+    delay = delay + flash_delay
+    schedule(function() draw ':' end, delay)
+  end
+
+  schedule(function() draw '' end, delay + flash_delay)
 end
 
 pack.add {
