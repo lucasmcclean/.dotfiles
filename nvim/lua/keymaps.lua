@@ -250,6 +250,13 @@ function M.set_general_keymaps()
     function() lint.try_lint() end,
     { desc = '[L]int Buffer', silent = true }
   )
+
+  vim.keymap.set(
+    'n',
+    '<leader>cm',
+    ':delmarks a-z<CR>',
+    { desc = '[C]lear [M]arks', silent = true }
+  )
 end
 
 function M.set_telescope_keymaps()
@@ -356,6 +363,8 @@ function M.set_telescope_keymaps()
     function() telescope.find_files { cwd = vim.fn.stdpath 'config' } end,
     { desc = '[S]earch [N]eovim files', silent = true }
   )
+
+  vim.keymap.set('n', '<leader>m', telescope.marks)
 end
 
 return M
