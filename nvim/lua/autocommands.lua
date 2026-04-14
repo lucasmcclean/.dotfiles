@@ -11,7 +11,9 @@ vim.api.nvim_create_autocmd('BufReadPost', {
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking text',
   group = vim.api.nvim_create_augroup('highlight-yank', { clear = true }),
-  callback = function() vim.highlight.on_yank() end,
+  callback = function()
+    vim.highlight.on_yank()
+  end,
 })
 
 vim.api.nvim_create_autocmd('BufWritePre', {
@@ -34,13 +36,18 @@ vim.api.nvim_create_autocmd('LspAttach', {
 vim.api.nvim_create_autocmd('LspDetach', {
   desc = 'Clean up on LSP detach',
   group = vim.api.nvim_create_augroup('lsp-detach', { clear = true }),
-  callback = function(_) vim.lsp.buf.clear_references() end,
+  callback = function(_)
+    vim.lsp.buf.clear_references()
+  end,
 })
 
 vim.api.nvim_create_autocmd('BufWritePost', {
   callback = function()
     local ft = vim.bo.filetype
-    if require('lint').linters_by_ft[ft] then require('lint').try_lint() end
+    local ok, lint = pcall(require, 'lint')
+    if ok and lint.linters_by_ft[ft] then
+      lint.try_lint()
+    end
   end,
 })
 
@@ -55,3 +62,11 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.opt_local.formatoptions:append 't'
   end,
 })
+
+local layout = require 'utils.layout'
+vim.api.nvim_create_autocmd('VimResized', {
+  callback = function()
+    vim.opt.scrolloff = layout.scrolloff()
+  end,
+})
+

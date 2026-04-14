@@ -89,3 +89,4 @@ vim.opt.statusline = table.concat {
 if vim.fn.has 'mac' == 1 then
   vim.keymap.set('i', 'jk', '<Esc>', { noremap = true, silent = true })
 end
+
