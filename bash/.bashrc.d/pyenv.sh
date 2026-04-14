@@ -5,6 +5,6 @@ if command -v pyenv >/dev/null 2>&1; then
         export PATH="$PYENV_ROOT/bin:$PATH"
     fi
 
-    eval "$(pyenv init - bash)"
-    eval "$(pyenv virtualenv-init -)"
+    # eval "$(pyenv init - bash)"
+    # eval "$(pyenv virtualenv-init -)"
 fi
